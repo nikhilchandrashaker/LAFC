@@ -1,0 +1,222 @@
+<title>LAFC By The Numbers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: black-and-gold club ledger. Season charts on top, stat bombs as a ruled list, scoring duel at the bottom. */
+:root{
+  --bg:#F2F2F0; --surface:#FFFFFF; --ink:#111113; --muted:#5E5E63; --line:#D9D9D5;
+  --gold:#8A6A2F; --gold-fill:#C39E6D; --bar:#B9B9B4; --loss:#9C3B2E;
+  --display:'Barlow Condensed','Arial Narrow',sans-serif; --body:'Barlow',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D0D0E; --surface:#17171A; --ink:#F1EFEA; --muted:#A3A39E; --line:#2C2C30;
+  --gold:#C39E6D; --gold-fill:#C39E6D; --bar:#4A4A4F; --loss:#D9826F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D0D0E; --surface:#17171A; --ink:#F1EFEA; --muted:#A3A39E; --line:#2C2C30;
+  --gold:#C39E6D; --gold-fill:#C39E6D; --bar:#4A4A4F; --loss:#D9826F; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(40px,8vw,68px);line-height:.95;text-transform:uppercase}
+h2{font-size:26px;text-transform:uppercase;border-bottom:2px solid var(--gold);padding-bottom:6px}
+.lede{max-width:62ch;color:var(--muted);margin:10px 0 0}
+.eyebrow{font-family:var(--display);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-size:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);padding:12px 14px;min-width:0}
+.tile b{display:block;font-family:var(--display);font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.tile span{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);padding:16px;min-width:0}
+.scroll{overflow-x:auto}
+svg text{fill:var(--muted);font-family:var(--body);font-size:11px}
+svg .val{fill:var(--ink);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{text-align:right;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child,th.l,td.l{text-align:left}
+th{font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--muted);font-weight:600}
+tr.hl td{color:var(--gold);font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.bombs{display:grid;gap:0;list-style:none;margin:0;padding:0}
+.bombs li{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.bombs .cat{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-size:14px;padding-top:2px}
+.bombs p{margin:0;min-width:0}
+.bombs small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.filters button{font:inherit;font-size:13px;background:transparent;color:var(--ink);border:1px solid var(--line);padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--gold-fill);border-color:var(--gold-fill);color:#111113}
+.filters button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+input[type=search]{font:inherit;width:100%;max-width:360px;padding:7px 10px;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.duel h3{font-size:22px}
+.duel dl{margin:8px 0 0;display:grid;grid-template-columns:1fr auto;gap:4px 12px}
+.duel dt{color:var(--muted)} .duel dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.note{color:var(--muted);font-size:13px;max-width:80ch}
+@media (max-width:560px){.bombs li{grid-template-columns:1fr;gap:2px}.duel{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Los Angeles FC · 2018 to 2026</div>
+  <h1>LAFC By The Numbers</h1>
+  <p class="lede">Nine seasons of Black &amp; Gold, from the 72-point record year to the quietest attack in club history. Built from public MLS, club and Wikipedia season data. Updated Nov 18, 2026, before the 2026 playoffs begin.</p>
+</header>
+
+<section class="tiles" aria-label="Club totals">
+  <div class="tile"><b>2</b><span>Supporters' Shields (2019, 2022)</span></div>
+  <div class="tile"><b>1</b><span>MLS Cup (2022)</span></div>
+  <div class="tile"><b>8 of 9</b><span>Seasons in the playoffs</span></div>
+  <div class="tile"><b id="t-ppg">1.69</b><span>Points per game, all seasons</span></div>
+  <div class="tile"><b>79</b><span>Bouanga regular-season goals, club record</span></div>
+</section>
+
+<section>
+  <h2>Points by season</h2>
+  <div class="card" style="margin-top:12px">
+    <div class="scroll"><svg id="pts" viewBox="0 0 760 300" width="100%" role="img" aria-label="Regular-season points for each LAFC season"></svg></div>
+    <div class="legend"><span><i style="background:var(--gold-fill)"></i>Trophy season</span><span><i style="background:var(--bar)"></i>Other season</span><span><i style="background:var(--loss)"></i>Missed playoffs</span></div>
+    <p class="note">2020 was a 22-game season. Labels under each bar show points per game. 2026 playoffs begin Nov 23 at St. Louis.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Goals for and against</h2>
+  <div class="card" style="margin-top:12px">
+    <div class="scroll"><svg id="gf" viewBox="0 0 760 280" width="100%" role="img" aria-label="Goals scored and conceded by season"></svg></div>
+    <div class="legend"><span><i style="background:var(--gold-fill)"></i>Goals for</span><span><i style="background:var(--bar)"></i>Goals against</span></div>
+    <p class="note">2026 goals against were not in the sources I could reach, so only goals for are drawn for that year.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Season ledger</h2>
+  <div class="card scroll" style="margin-top:12px">
+    <table id="ledger"></table>
+  </div>
+</section>
+
+<section>
+  <h2>Records and milestones</h2>
+  <div class="filters" id="filters" role="group" aria-label="Filter records by category"></div>
+  <input type="search" id="q" placeholder="Search stats (try Vela, xG, 2022)" aria-label="Search stats">
+  <ul class="bombs" id="bombs" style="margin-top:8px"></ul>
+</section>
+
+<section>
+  <h2>Two scoring kings</h2>
+  <div class="card" style="margin-top:12px">
+    <div class="duel">
+      <div><h3>Denis Bouanga</h3><dl>
+        <dt>Regular-season goals</dt><dd>79</dd>
+        <dt>Appearances</dt><dd>127</dd>
+        <dt>Goals per appearance</dt><dd id="b-gpa"></dd>
+        <dt>Best season (league)</dt><dd>Golden Boot, 2023</dd></dl></div>
+      <div><h3>Carlos Vela</h3><dl>
+        <dt>Regular-season goals</dt><dd>78</dd>
+        <dt>Appearances</dt><dd>152</dd>
+        <dt>Goals per appearance</dt><dd id="v-gpa"></dd>
+        <dt>Best season (league)</dt><dd>34 goals, 2019 MVP</dd></dl></div>
+    </div>
+    <p class="note">Figures as of Sept 19, 2026, when Bouanga passed Vela. Bouanga has scored more since, with 82 by Oct 14. Vela is still the club leader in games played and assists.</p>
+  </div>
+</section>
+
+<section>
+  <p class="note">What this is not: event data. StatsBomb's LAFC feed is licensed to the club, so there are no public shot-level xG maps here. Everything above is season-level or milestone data from public sources. The one xG figure is Bouanga's 2025 total from LAFC's own playoff preview.</p>
+</section>
+</div>
+
+<script>
+var S=[
+{y:2018,w:16,l:9,d:9,gf:68,ga:52,pts:57,g:34,po:'Round 1',sc:'Vela 15',t:0},
+{y:2019,w:21,l:4,d:9,gf:85,ga:37,pts:72,g:34,po:'Conf. final',sc:'Vela 38',t:1},
+{y:2020,w:9,l:8,d:5,gf:47,ga:39,pts:32,g:22,po:'Round 1',sc:'Rossi 18',t:0},
+{y:2021,w:12,l:13,d:9,gf:53,ga:51,pts:45,g:34,po:'Missed',sc:'Arango 14',t:0,miss:1},
+{y:2022,w:21,l:9,d:4,gf:66,ga:38,pts:67,g:34,po:'Champions',sc:'Arango 21',t:1},
+{y:2023,w:14,l:10,d:10,gf:54,ga:39,pts:52,g:34,po:'Runner-up',sc:'Bouanga 32',t:0},
+{y:2024,w:19,l:8,d:7,gf:63,ga:43,pts:64,g:34,po:'Conf. semi',sc:'Bouanga 28',t:0},
+{y:2025,w:17,l:8,d:9,gf:65,ga:40,pts:60,g:34,po:'Conf. semi',sc:'Bouanga 24',t:0},
+{y:2026,w:12,l:11,d:11,gf:52,ga:null,pts:47,g:34,po:'Round 1 Nov 23',sc:'n/a',t:0}
+];
+var B=[
+['Team record','2019: 72 points, an MLS record at the time (New England broke it with 73 in 2021)','lafc.com/club/records'],
+['Team record','2019: +48 goal difference, an MLS record','lafc.com/club/records'],
+['Team record','2019: 85 goals in 34 games, tying the 1998 Galaxy, who played 32','mlssoccer.com'],
+['Player record','Vela 2019: 34 goals and 15 assists, the first 30-goal/15-assist season in MLS','lafc.com/club/history/2019'],
+['Player record','Vela and Rossi 2019: 50 goals, the most by a duo in one MLS season','lafc.com/club/records'],
+['Club first','First club with three different Golden Boot winners: Vela (2019), Rossi (2020), Bouanga (2023)','lafc.com/club/records'],
+['Honors','2022: Supporters’ Shield plus MLS Cup. The final ended 3-3 after Bale’s 128th-minute equalizer, and LAFC won 3-0 on penalties','lafc.com'],
+['Honors','2024: U.S. Open Cup champions','lafc.com'],
+['Bouanga','Passed Vela as the club’s regular-season goals leader on Sept 19, 2026: 79 goals in 127 games vs 78 in 152','lafc.com'],
+['Bouanga','78 regular-season goals from 2023 to Sept 19, 2026, nine more than anyone else in MLS (Messi, 69)','lafc.com'],
+['Bouanga','First MLS player with 20+ goals in three straight seasons (2023 to 2025)','MLS Media Resources'],
+['Bouanga','2025: 24 goals from 21.92 xG, about 2.1 over expected','lafc.com playoff preview'],
+['Duo','Son Heung-min and Bouanga scored 17 straight LAFC league goals in 2025, an MLS duo record','MLS Media Resources'],
+['Duo','After Son arrived in Aug 2025, the pair had 25 goals and 8 assists in 15 games and LAFC went 9W-2L-4T','lafc.com'],
+['Son','2026: 15 league assists, tying Vela’s club single-season record and tied for the MLS lead','lafc.com'],
+['Son','Four assists in one half vs Orlando (6-0, Apr 4), a club record','lafc.com'],
+['Defense','2026: six straight league shutouts to open the year, an MLS record 540 minutes','lafc.com'],
+['2026','12W-11L-11D for 47 points. The 52 goals are the fewest in any full LAFC season. Only 3W-7L-7D on the road','lafc.com'],
+['Consistency','Playoffs in 8 of 9 seasons. Only 2021, at 45 points, missed','lafc.com'],
+['Playoffs','11W-6L-2D in MLS Cup Playoff games before 2026, and 5W-1L-2D all-time vs St. Louis','lafc.com']
+];
+function el(n,a,t){var e=document.createElementNS('http://www.w3.org/2000/svg',n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e}
+function bars(){
+  var s=document.getElementById('pts'),L=40,T=20,H=230,W=700,max=80,bw=46,step=W/S.length;
+  [0,20,40,60,80].forEach(function(v){var y=T+H-v/max*H;
+    s.appendChild(el('line',{x1:L,x2:L+W,y1:y,y2:y,stroke:'var(--line)'}));
+    s.appendChild(el('text',{x:L-6,y:y+4,'text-anchor':'end'},v))});
+  S.forEach(function(r,i){var x=L+i*step+(step-bw)/2,h=r.pts/max*H,y=T+H-h;
+    var fill=r.miss?'var(--loss)':(r.t?'var(--gold-fill)':'var(--bar)');
+    s.appendChild(el('rect',{x:x,y:y,width:bw,height:h,fill:fill}));
+    s.appendChild(el('text',{x:x+bw/2,y:y-5,'text-anchor':'middle',class:'val'},r.pts));
+    s.appendChild(el('text',{x:x+bw/2,y:T+H+16,'text-anchor':'middle'},r.y));
+    s.appendChild(el('text',{x:x+bw/2,y:T+H+30,'text-anchor':'middle'},(r.pts/r.g).toFixed(2)+' ppg'))});
+}
+function gfga(){
+  var s=document.getElementById('gf'),L=40,T=20,H=210,W=700,max=100,step=W/S.length,bw=20;
+  [0,25,50,75,100].forEach(function(v){var y=T+H-v/max*H;
+    s.appendChild(el('line',{x1:L,x2:L+W,y1:y,y2:y,stroke:'var(--line)'}));
+    s.appendChild(el('text',{x:L-6,y:y+4,'text-anchor':'end'},v))});
+  S.forEach(function(r,i){var cx=L+i*step+step/2;
+    var h1=r.gf/max*H;
+    s.appendChild(el('rect',{x:cx-bw-1,y:T+H-h1,width:bw,height:h1,fill:'var(--gold-fill)'}));
+    s.appendChild(el('text',{x:cx-bw/2-1,y:T+H-h1-4,'text-anchor':'middle',class:'val'},r.gf));
+    if(r.ga!=null){var h2=r.ga/max*H;
+      s.appendChild(el('rect',{x:cx+1,y:T+H-h2,width:bw,height:h2,fill:'var(--bar)'}));
+      s.appendChild(el('text',{x:cx+bw/2+1,y:T+H-h2-4,'text-anchor':'middle',class:'val'},r.ga))}
+    s.appendChild(el('text',{x:cx,y:T+H+16,'text-anchor':'middle'},r.y))});
+}
+function ledger(){
+  var h='<tr><th>Season</th><th>W</th><th>L</th><th>D</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th><th>PPG</th><th class="l">Playoffs</th><th class="l">Top scorer (all comps)</th></tr>';
+  S.forEach(function(r){var gd=r.ga==null?'n/a':(r.gf-r.ga>0?'+':'')+(r.gf-r.ga);
+    h+='<tr'+(r.t?' class="hl"':'')+'><td>'+r.y+'</td><td>'+r.w+'</td><td>'+r.l+'</td><td>'+r.d+'</td><td>'+r.gf+'</td><td>'+(r.ga==null?'n/a':r.ga)+'</td><td>'+gd+'</td><td>'+r.pts+'</td><td>'+(r.pts/r.g).toFixed(2)+'</td><td class="l">'+r.po+'</td><td class="l">'+r.sc+'</td></tr>'});
+  document.getElementById('ledger').innerHTML=h;
+}
+var cat='All';
+function bombs(){
+  var q=document.getElementById('q').value.toLowerCase(),ul=document.getElementById('bombs');ul.innerHTML='';
+  B.forEach(function(b){if(cat!=='All'&&b[0]!==cat)return;if(q&&(b[0]+' '+b[1]).toLowerCase().indexOf(q)<0)return;
+    var li=document.createElement('li');
+    li.innerHTML='<span class="cat"></span><p></p>';
+    li.children[0].textContent=b[0];li.children[1].textContent=b[1];
+    var sm=document.createElement('small');sm.textContent='Source: '+b[2];li.children[1].appendChild(sm);ul.appendChild(li)});
+  if(!ul.children.length){ul.innerHTML='<li><span class="cat">None</span><p>No stats match. Clear the search or pick another category.</p></li>'}
+}
+function filters(){
+  var cats=['All'];B.forEach(function(b){if(cats.indexOf(b[0])<0)cats.push(b[0])});
+  var f=document.getElementById('filters');
+  cats.forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c;b.setAttribute('aria-pressed',c===cat);
+    b.onclick=function(){cat=c;[].forEach.call(f.children,function(x){x.setAttribute('aria-pressed',x.textContent===c)});bombs()};f.appendChild(b)});
+}
+(function(){
+  var pts=0,g=0;S.forEach(function(r){pts+=r.pts;g+=r.g});
+  document.getElementById('t-ppg').textContent=(pts/g).toFixed(2);
+  document.getElementById('b-gpa').textContent=(79/127).toFixed(2);
+  document.getElementById('v-gpa').textContent=(78/152).toFixed(2);
+  bars();gfga();ledger();filters();bombs();
+  document.getElementById('q').addEventListener('input',bombs);
+})();
+</script>
